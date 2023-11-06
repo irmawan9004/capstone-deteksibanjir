@@ -1,23 +1,57 @@
-import React from "react";
+import React, { useState } from "react";
 import Nav from "react-bootstrap/Nav";
-import { Container } from "react-bootstrap";
+import { Container, Button } from "react-bootstrap";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
+import LoginModal from "../Login";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "./index.css";
 
-export default function NavbarWeb() {
+export default function NavbarWeb(props) {
+  const [login, setLogin] = useState(true);
+  const [modalShow, setModalShow] = React.useState(false);
   return (
-    <Navbar collapseOnSelect expand="lg" className="bg-body-tertiary">
+    <Navbar
+      collapseOnSelect
+      expand="lg"
+      className="bg-body-tertiary"
+      fixed="top"
+    >
       <Container>
-        <Navbar.Brand href="/" className="h1">
-          LOGO
-        </Navbar.Brand>
-        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-        <Navbar.Collapse id="responsive-navbar-nav">
-          <Nav className="me-auto">
-            <Nav.Link href="/">Beranda</Nav.Link>
-            <Nav.Link href="/dashboard">Dashboard</Nav.Link>
-            <NavDropdown title="Data Air" id="collasible-nav-dropdown">
+        <Navbar.Collapse
+          id="responsive-navbar-nav"
+          className="d-flex justify-content-between"
+        >
+          <Navbar.Brand
+            href="/"
+            className="h1"
+            style={{
+              color: "Black",
+              fontFamily: "Roboto",
+              fontWeight: "900",
+              fontSize: "2rem",
+            }}
+          >
+            LOGO
+          </Navbar.Brand>
+          <Nav
+            style={{
+              fontFamily: "Roboto",
+              fontWeight: "500",
+              fontSize: "1.2rem",
+            }}
+          >
+            <Nav.Link href="/" className="px-3 mx-1">
+              Beranda
+            </Nav.Link>
+            <Nav.Link href="/dashboard" className="px-3 mx-1 ">
+              Dashboard
+            </Nav.Link>
+            <NavDropdown
+              title="Data Air"
+              id="collasible-nav-dropdown"
+              className="px-3 mx-1"
+            >
               <NavDropdown.Item href="/ketinggianair">
                 Ketinggian Air
               </NavDropdown.Item>
@@ -25,22 +59,25 @@ export default function NavbarWeb() {
               <NavDropdown.Item href="/kekeruhanair">
                 Kekeruhan Air
               </NavDropdown.Item>
-              <NavDropdown.Divider />
             </NavDropdown>
-            <Nav.Link href="/evakuasi">Evakuasi</Nav.Link>
           </Nav>
-          <NavDropdown title="SULIKIN" id="collasible-nav-dropdown">
-            <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-            <NavDropdown.Item href="#action/3.2">
-              Another action
-            </NavDropdown.Item>
-            <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-            <NavDropdown.Divider />
-            <NavDropdown.Item href="#action/3.4">
-              Separated link
-            </NavDropdown.Item>
-          </NavDropdown>
+          {login ? (
+            <Button variant="primary" onClick={() => setModalShow(true)}>
+              Login
+            </Button>
+          ) : (
+            <NavDropdown
+              title="SULIKIN"
+              id="collasible-nav-dropdown"
+              style={{
+                fontSize: "1.2rem",
+              }}
+            >
+              <NavDropdown.Item href="#action/3.1">Logout</NavDropdown.Item>
+            </NavDropdown>
+          )}
         </Navbar.Collapse>
+        <LoginModal show={modalShow} onHide={() => setModalShow(false)} />
       </Container>
     </Navbar>
   );

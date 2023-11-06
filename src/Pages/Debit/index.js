@@ -1,6 +1,7 @@
 import React from "react";
 import { Container, Table, Pagination } from "react-bootstrap";
 import NavbarWeb from "../../Components/Navbar";
+import Chart from "../../Components/Chart";
 export default function Debit() {
   let active = 3;
   let items = [];
@@ -14,8 +15,33 @@ export default function Debit() {
   return (
     <div>
       <NavbarWeb />
-      <Container>
-        <h1>Data Riwayat Debit Air Bendungan</h1>
+      <Container
+        className="min-vh-100"
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          flex: 1,
+          height: "100%",
+          justifyContent: "center",
+          marginTop: "6rem",
+        }}
+      >
+        <Chart />
+        <h1
+          style={{
+            marginTop: "4rem",
+          }}
+        >
+          Data Riwayat Ketinggian Air Bendungan
+        </h1>
+        <div
+          className="p"
+          style={{
+            marginBottom: "1.5rem",
+          }}
+        >
+          Last Updated 7 minutes ago
+        </div>
         <Table striped bordered hover>
           <thead>
             <tr>
@@ -120,7 +146,11 @@ export default function Debit() {
             </tr>
           </tbody>
         </Table>
-        <Pagination>
+        <Pagination
+          style={{
+            marginLeft: "auto",
+          }}
+        >
           <Pagination.Prev />
           {items}
           <Pagination.Next />
