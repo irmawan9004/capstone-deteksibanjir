@@ -6,8 +6,6 @@ import Dashboard from "./Pages/Dashboard";
 import Ketinggian from "./Pages/Ketinggian";
 import Debit from "./Pages/Debit";
 import Kekeruhan from "./Pages/Kekeruhan";
-import Chart from "./Components/Chart";
-import Footer from "./Components/Footer";
 
 import Cards from "./Components/Card";
 

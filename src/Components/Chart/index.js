@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ApexCharts from "react-apexcharts";
 
 export default function Chart(props) {
-  console.log(props);
+  // console.log(props);
   const [state, setState] = useState({
     series: [
       {
@@ -12,7 +12,7 @@ export default function Chart(props) {
     ],
     options: {
       chart: {
-        height: 400,
+        height: 300,
         type: "line",
         zoom: {
           enabled: false,
@@ -46,10 +46,23 @@ export default function Chart(props) {
         },
       },
       xaxis: {
-        categories: props.data,
+        categories: props.data.map((item, index) => index + 1), // Assuming you want to use index-based labels
       },
     },
   });
+  useEffect(() => {
+    // Update the series data when props.data changes
+    setState((prevState) => ({
+      ...prevState,
+      series: [
+        {
+          name: props.name,
+          data: props.data,
+        },
+      ],
+    }));
+  }, [props.data]);
+
   return (
     <div id="chart">
       <ApexCharts

@@ -1,19 +1,19 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
 import { Container, CardGroup, Card } from "react-bootstrap";
-import ketinggian from "../../assets/image/ketinggian.png";
-import kekeruhan from "../../assets/image/kekeruhan.png";
-import debit from "../../assets/image/arus.png";
+import ketinggian_aman from "../../assets/image/aman_tinggi.png";
+import kekeruhan_aman from "../../assets/image/aman_keruh.png";
+import debit_aman from "../../assets/image/aman_arus.png";
 import axios from "axios";
 
 export default function Cards() {
-  const [kondisiAir, setKondisiAir] = useState([]);
+  const [kondisiAirSekarang, setKondisiAirSekarang] = useState({});
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/kondisiair")
+      .get("http://localhost:5000/api/kondisiair")
       .then((res) => {
-        setKondisiAir(res.data);
+        setKondisiAirSekarang(res.data.result[0]);
       })
       .catch((err) => {
         console.log(err);
@@ -21,43 +21,126 @@ export default function Cards() {
   }, []);
 
   return (
-    <Container style={{ marginTop: "5rem" }}>
+    <Container
+      style={{ marginTop: "5rem" }}
+      className="d-flex justify-content-between"
+    >
       <CardGroup>
-        <Card>
-          <Card.Img variant="top" src={ketinggian} />
-          <Card.Body>
-            <Card.Title>Ketinggian Air</Card.Title>
-            <Card.Text>
-              Ketinggian Air pada Bendungan adalah <h1>10m</h1>
-            </Card.Text>
+        <Card
+          border={
+            kondisiAirSekarang.tinggi >= 100
+              ? "danger"
+              : kondisiAirSekarang.tinggi < 100 &&
+                kondisiAirSekarang.tinggi >= 80
+              ? "warning"
+              : "success"
+          }
+          style={{ width: "25rem", borderRadius: "1.3rem" }}
+          className="d-flex justify-content-between mr-4"
+        >
+          <Card.Header>Ketinggian Air</Card.Header>
+          <Card.Body className="d-flex justify-content-between ">
+            <div>
+              <h1 className="fw-bolder fs-1 mb-3">
+                {kondisiAirSekarang.tinggi} M
+              </h1>
+              <h5>
+                Ketinggian Air :{" "}
+                {kondisiAirSekarang.tinggi >= 100 ? (
+                  <span className="fw-bolder text-warning"> Waspada</span>
+                ) : kondisiAirSekarang.tinggi < 100 &&
+                  kondisiAirSekarang.tinggi >= 80 ? (
+                  <span className="fw-bolder text-danger">Siaga</span>
+                ) : (
+                  <span className="fw-bolder text-success">Aman</span>
+                )}
+              </h5>
+            </div>
+
+            <img
+              src={ketinggian_aman}
+              width={90}
+              height={100}
+              alt="ketinggian"
+            />
           </Card.Body>
-          <Card.Footer>
-            <small className="text-muted">Last updated 3 mins ago</small>
-          </Card.Footer>
         </Card>
-        <Card>
-          <Card.Img variant="top" src={debit} />
-          <Card.Body>
-            <Card.Title>Debit Air</Card.Title>
-            <Card.Text>
-              Debit air pada Bendungan adalah <h1>2m3/min</h1>
-            </Card.Text>
+
+        <br />
+      </CardGroup>
+      <CardGroup>
+        {" "}
+        <Card
+          border={
+            kondisiAirSekarang.debit >= 100
+              ? "danger"
+              : kondisiAirSekarang.debit < 100 && kondisiAirSekarang.debit >= 80
+              ? "warning"
+              : "success"
+          }
+          style={{ width: "25rem", borderRadius: "1.3rem" }}
+        >
+          <Card.Header>Kecepatan Air</Card.Header>
+          <Card.Body className="d-flex justify-content-between ">
+            <div>
+              <h1 className="fw-bolder fs-1 mb-3">
+                {kondisiAirSekarang.debit} M/s
+              </h1>
+              <h5>
+                Kecepatan Air :{" "}
+                {kondisiAirSekarang.debit >= 100 ? (
+                  <span className="fw-bolder text-danger"> Waspada</span>
+                ) : kondisiAirSekarang.debit < 100 &&
+                  kondisiAirSekarang.debit >= 80 ? (
+                  <span className="fw-bolder text-warning">Siaga</span>
+                ) : (
+                  <span className="fw-bolder text-success">Aman</span>
+                )}
+              </h5>
+            </div>
+            <img src={debit_aman} alt="ketinggian" />
           </Card.Body>
-          <Card.Footer>
-            <small className="text-muted">Last updated 3 mins ago</small>
-          </Card.Footer>
         </Card>
-        <Card>
-          <Card.Img variant="top" src={kekeruhan} />
+      </CardGroup>
+      <CardGroup>
+        {" "}
+        <Card
+          border={
+            kondisiAirSekarang.keruh >= 100
+              ? "danger"
+              : kondisiAirSekarang.keruh < 100 && kondisiAirSekarang.keruh >= 80
+              ? "warning"
+              : "success"
+          }
+          style={{ width: "25rem", borderRadius: "1.3rem" }}
+        >
+          <Card.Header>Kekeruhan Air</Card.Header>
           <Card.Body>
-            <Card.Title>Kekeruhan Air</Card.Title>
-            <Card.Text>
-              Tingkat Kekeruhan Air pada Bendungan adalah <h1>15m</h1>
-            </Card.Text>
+            <div className="d-flex justify-content-between ">
+              <div>
+                <h1 className="fw-bolder fs-1 mb-3">
+                  {kondisiAirSekarang.keruh} NTU
+                </h1>
+                <h5>
+                  Kekeruhan Air :{" "}
+                  {kondisiAirSekarang.keruh >= 100 ? (
+                    <span className="fw-bolder text-danger"> Waspada</span>
+                  ) : kondisiAirSekarang.keruh < 100 &&
+                    kondisiAirSekarang.keruh >= 80 ? (
+                    <span className="fw-bolder text-warning">Siaga</span>
+                  ) : (
+                    <span className="fw-bolder text-success">Aman</span>
+                  )}
+                </h5>
+              </div>
+              <img
+                src={kekeruhan_aman}
+                width={90}
+                height={90}
+                alt="ketinggian"
+              />
+            </div>
           </Card.Body>
-          <Card.Footer>
-            <small className="text-muted">Last updated 3 mins ago</small>
-          </Card.Footer>
         </Card>
       </CardGroup>
     </Container>

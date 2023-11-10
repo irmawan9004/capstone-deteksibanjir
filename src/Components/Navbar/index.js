@@ -1,15 +1,23 @@
 import React, { useState } from "react";
 import Nav from "react-bootstrap/Nav";
-import { Container, Button } from "react-bootstrap";
+import { Container, Button, Image } from "react-bootstrap";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import LoginModal from "../Login";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./index.css";
+import logo from "../../assets/image/Logo.png";
+import { useEffect } from "react";
 
-export default function NavbarWeb(props) {
+export default function NavbarWeb() {
   const [login, setLogin] = useState(true);
   const [modalShow, setModalShow] = React.useState(false);
+
+  useEffect(() => {
+    localStorage.getItem("token") ? setLogin(false) : setLogin(true);
+    console.log(localStorage.getItem("token"));
+  }, []);
+
   return (
     <Navbar
       collapseOnSelect
@@ -32,7 +40,7 @@ export default function NavbarWeb(props) {
               fontSize: "2rem",
             }}
           >
-            LOGO
+            <Image src={logo} alt="logo" />
           </Navbar.Brand>
           <Nav
             style={{
@@ -62,7 +70,10 @@ export default function NavbarWeb(props) {
             </NavDropdown>
           </Nav>
           {login ? (
-            <Button variant="primary" onClick={() => setModalShow(true)}>
+            <Button
+              className="btn btn-primary px-4"
+              onClick={() => setModalShow(true)}
+            >
               Login
             </Button>
           ) : (
@@ -73,7 +84,15 @@ export default function NavbarWeb(props) {
                 fontSize: "1.2rem",
               }}
             >
-              <NavDropdown.Item href="#action/3.1">Logout</NavDropdown.Item>
+              <NavDropdown.Item
+                onClick={() => {
+                  localStorage.removeItem("token");
+                  setLogin(true);
+                  console.log(localStorage.getItem("token"));
+                }}
+              >
+                Logout
+              </NavDropdown.Item>
             </NavDropdown>
           )}
         </Navbar.Collapse>

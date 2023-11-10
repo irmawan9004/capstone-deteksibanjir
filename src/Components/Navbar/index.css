@@ -1,4 +1,35 @@
 .navbar-nav a:hover {
-  background-color: #bac6f2;
+  background-color: #203989;
   border-radius: 0.4rem;
+  color: white;
+}
+
+.navbar-nav a {
+  color: #203989;
+  font-weight: 500;
+  font-size: 1.2rem;
+}
+.navbar-nav a.active {
+  color: #203989;
+  border-radius: 0.4rem;
+}
+
+.btn-primary {
+  background-color: #203989;
+  border-color: #203989;
+  color: white;
+}
+
+.btn-secondary {
+  background-color: #039be5;
+  border-color: #039be5;
+  color: white;
+  padding: 0.5rem 2rem;
+}
+
+.btn-secondary:hover {
+  background-color: #203989;
+  border-color: #039be5;
+  color: white;
+  padding: 0.5rem 2rem;
 }

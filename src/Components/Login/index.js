@@ -13,11 +13,18 @@ export default function LoginModal(props) {
   const Auth = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:5000/api/login", {
-        email: email,
-        password: password,
-      });
+      await axios
+        .post("http://localhost:5000/api/login", {
+          email: email,
+          password: password,
+        })
+        .then((res) => {
+          console.log(res.data);
+          localStorage.setItem("token", res.data.accessToken);
+          console.log(localStorage.getItem("token"));
+        });
       navigate("/dashboard");
+      props.onHide();
     } catch (error) {
       if (error.response) {
         setMsg(error.response.data.msg);

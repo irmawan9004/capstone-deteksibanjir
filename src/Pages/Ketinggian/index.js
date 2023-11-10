@@ -8,7 +8,6 @@ import ReactPaginate from "react-paginate";
 
 export default function Ketinggian() {
   const [kondisiAir, setKondisiAir] = useState([]);
-  const [tinggi, setTinggi] = useState([]);
   const [page, setPage] = useState(0);
   const [limit, setLimit] = useState(10);
   const [pages, setPages] = useState(0);
@@ -16,6 +15,8 @@ export default function Ketinggian() {
   const [keyword, setKeyword] = useState("");
   const [query, setQuery] = useState("");
   const [msg, setMsg] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
+  const [chartData, setChartData] = useState([]);
 
   // let active = 3;
 
@@ -23,22 +24,33 @@ export default function Ketinggian() {
 
   useEffect(() => {
     getKondisiAir();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, keyword]);
 
   const getKondisiAir = async () => {
-    const response = await axios.get(
-      `http://localhost:5000/kondisiair?search_query=${keyword}&page=${page}&limit=${limit}`
-    );
-    setTinggi(response.data.result.map((item) => item.tinggi));
-    setKondisiAir(response.data.result);
-    setPage(response.data.page);
-    setPages(response.data.totalPage);
-    setRows(response.data.totalRows);
-    console.log(response.data);
+    try {
+      const response = await axios.get(
+        `http://localhost:5000/api/kondisiair?search_query=${keyword}&page=${page}&limit=${limit}`
+      );
+      const newChartData = response.data.result.map((item) => item.tinggi);
+      setChartData(newChartData);
+      setKondisiAir(response.data.result);
+      setPage(response.data.page);
+      setPages(response.data.totalPage);
+      setRows(response.data.totalRows);
+      setIsLoading(false); // Data has been fetched, set isLoading to false
+    } catch (error) {
+      setIsLoading(false); // Handle the error and set isLoading to false
+      console.error("Error fetching data:", error);
+    }
   };
 
   const changePage = ({ selected }) => {
+    const startIndex = selected * limit;
+    const endIndex = startIndex + limit;
+    const pageData = kondisiAir.slice(startIndex, endIndex);
+
+    setChartData(pageData); // Update chartData with the data of the current page
+
     setPage(selected);
     if (selected === 9) {
       setMsg("Silahkan Cari Tanggal Yang Ingin Dilihat");
@@ -67,7 +79,11 @@ export default function Ketinggian() {
           marginTop: "6rem",
         }}
       >
-        <Chart name={name} data={tinggi} />
+        {isLoading ? (
+          <div>loading</div>
+        ) : (
+          <Chart name={name} data={chartData} />
+        )}
         <h1
           style={{
             marginTop: "4rem",
@@ -81,7 +97,7 @@ export default function Ketinggian() {
             marginBottom: "1.5rem",
           }}
         >
-          Last Updated 7 minutes ago
+          Last Updated 1 minutes ago
         </div>
         <Form inline onSubmit={searchData}>
           <Row>
@@ -150,7 +166,7 @@ export default function Ketinggian() {
             pageLinkClassName={"page-link"}
             previousLinkClassName={"page-link"}
             nextLinkClassName={"page-link"}
-            activeLinkClassName={"page-item active "}
+            activeLinkClassName={"page-item active is-rounded "}
             disabledLinkClassName={"page-item disabled"}
           />
         </nav>

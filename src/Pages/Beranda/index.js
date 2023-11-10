@@ -3,6 +3,7 @@ import { Container, Row, Col, Image, Button } from "react-bootstrap";
 import NavbarWeb from "../../Components/Navbar";
 import hero from "../../assets/image/hero.png";
 import Footer from "../../Components/Footer";
+import telegram from "../../assets/image/Vector.png";
 
 export default function Beranda() {
   return (
@@ -17,20 +18,28 @@ export default function Beranda() {
         }}
       >
         <Row>
-          <Col sm={6} className="mr-4">
-            <h1 className="fw-bolder fs-1">
+          <Col sm={5}>
+            <h1 className="fw-bolder fs-1" style={{ color: "#203989" }}>
               Sistem Pemantau Banjir Bendungan Pucang Gading
             </h1>
-            <p className="mt-4 fw-light">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              Suspendisse varius enim in eros elementum tristique. Duis cursus,
-              mi quis viverra ornare, eros dolor interdum nulla, ut commodo diam
-              libero vitae erat.
+            <p className="mt-4 fw-light mb-4" style={{ color: "#6A7AC4" }}>
+              Bergabunglah di channel Telegram Pemantauan Bendungan Pucang
+              Gading untuk mendapatkan informasi peringatan banjir secara dini
+              dan akurat. Dengan bergabung, Anda dapat lebih siap dan aman dalam
+              menghadapi situasi banjir.
             </p>
-            <Button variant="primary">Gabung Channel</Button>{" "}
+            <div>
+              <Button className="btn-secondary">
+                <span className="mr-2">
+                  <img src={telegram} alt="" />
+                </span>
+                {"  "}
+                Gabung Channel
+              </Button>
+            </div>
           </Col>
-          <Col sm={6}>
-            <Image src={hero} fluid />;
+          <Col sm={7} className="">
+            <Image className=" d-flex justify-content-end" src={hero} fluid />;
           </Col>
         </Row>
       </Container>

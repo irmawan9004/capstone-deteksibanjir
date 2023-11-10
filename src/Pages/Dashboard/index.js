@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import { Container, Image } from "react-bootstrap";
+import React from "react";
+import { Container } from "react-bootstrap";
 import NavbarWeb from "../../Components/Navbar";
-import kondisi from "../../assets/image/Kondisi Bendungan.png";
 import Cards from "../../Components/Card";
+import Hero from "../../Components/Hero";
 
 export default function Dashboard() {
   return (
@@ -23,7 +23,7 @@ export default function Dashboard() {
           marginTop: "8rem",
         }}
       >
-        <Image src={kondisi} fluid />;
+        <Hero />
       </Container>
       <Cards />
     </div>
