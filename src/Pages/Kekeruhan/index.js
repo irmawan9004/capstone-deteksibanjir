@@ -29,7 +29,7 @@ export default function Kekeruhan() {
   const getKondisiAir = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/api/kondisiair?search_query=${keyword}&page=${page}&limit=${limit}`
+        `https://young-everglades-00873-d903e8dbc719.herokuapp.com/api/kondisiair?search_query=${keyword}&page=${page}&limit=${limit}`
       );
       const newChartData = response.data.result.map((item) => item.keruh);
       setChartData(newChartData);

@@ -40,7 +40,9 @@ export default function NavbarWeb() {
               fontSize: "2rem",
             }}
           >
-            <Image src={logo} alt="logo" />
+            <div className="d-flex justify-content-center align-items-lg-center">
+              <Image src={logo} alt="logo" />
+            </div>
           </Navbar.Brand>
           <Nav
             style={{

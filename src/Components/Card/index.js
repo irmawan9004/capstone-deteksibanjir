@@ -11,7 +11,9 @@ export default function Cards() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/api/kondisiair")
+      .get(
+        "https://young-everglades-00873-d903e8dbc719.herokuapp.com/api/kondisiair"
+      )
       .then((res) => {
         setKondisiAirSekarang(res.data.result[0]);
       })

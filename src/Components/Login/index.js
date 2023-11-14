@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import { Modal, Button, Form } from "react-bootstrap";
+import { Modal, Button, Form, Image } from "react-bootstrap";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import logo from "../../assets/image/Logo-besar.png";
 
 export default function LoginModal(props) {
   const [email, setEmail] = useState("");
@@ -14,10 +15,13 @@ export default function LoginModal(props) {
     e.preventDefault();
     try {
       await axios
-        .post("http://localhost:5000/api/login", {
-          email: email,
-          password: password,
-        })
+        .post(
+          "https://young-everglades-00873-d903e8dbc719.herokuapp.com/api/login",
+          {
+            email: email,
+            password: password,
+          }
+        )
         .then((res) => {
           console.log(res.data);
           localStorage.setItem("token", res.data.accessToken);
@@ -35,39 +39,60 @@ export default function LoginModal(props) {
   return (
     <Modal
       {...props}
-      size="lg"
       aria-labelledby="contained-modal-title-vcenter"
       centered
+      size="lg"
+      style={{
+        fontFamily: "Roboto",
+        fontWeight: "500",
+        fontSize: "1.2rem",
+      }}
     >
-      <Modal.Header closeButton>
-        <Modal.Title id="contained-modal-title-vcenter">Login</Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
-        <h4>AWAS BANJIR</h4>
+      <Modal.Header closeButton></Modal.Header>
+      <Modal.Body style={{ padding: "2rem 8rem" }}>
+        <div className="d-flex justify-content-center align-items-center mb-5">
+          <Image src={logo} width={90} alt="logo" className="ml-4" />
+          <h2
+            className="fw-bolder fs-1"
+            style={{ marginLeft: "1rem", color: " #203989" }}
+          >
+            Portal Banjir
+          </h2>
+        </div>
+
         <Form onSubmit={Auth}>
           <Form.Group className="mb-3" controlId="formBasicEmail">
-            <Form.Label>Email address</Form.Label>
+            <Form.Label>Email</Form.Label>
             <Form.Control
               type="email"
               placeholder="Enter email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              className="p-2"
+              style={{ borderColor: " #6A7AC4" }}
             />
           </Form.Group>
 
-          <Form.Group className="mb-3" controlId="formBasicPassword">
+          <Form.Group className="mb-4" controlId="formBasicPassword">
             <Form.Label>Password</Form.Label>
             <Form.Control
               type="password"
               placeholder="*******"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              className="p-2"
+              style={{ borderColor: " #6A7AC4" }}
             />
             <Form.Text className="text-muted">{msg}</Form.Text>
           </Form.Group>
 
-          <Button variant="primary" type="submit">
-            Submit
+          <Button
+            variant="primary"
+            type="submit"
+            style={{ width: "100%" }}
+            className="mb-5  align-items-center"
+          >
+            <div className="p-1"> Submit</div>
           </Button>
         </Form>
       </Modal.Body>

@@ -29,7 +29,10 @@ export default function Beranda() {
               menghadapi situasi banjir.
             </p>
             <div>
-              <Button className="btn-secondary">
+              <Button
+                className="btn-secondary"
+                href="https://t.me/kondisiairpucang"
+              >
                 <span className="mr-2">
                   <img src={telegram} alt="" />
                 </span>
