@@ -9,7 +9,7 @@ import ReactPaginate from "react-paginate";
 export default function Kecepatan() {
   const [kondisiAir, setKondisiAir] = useState([]);
   const [page, setPage] = useState(0);
-  const [limit, setLimit] = useState(10);
+  const [limit, setLimit] = useState(60);
   const [pages, setPages] = useState(0);
   const [rows, setRows] = useState(0);
   const [keyword, setKeyword] = useState("");
@@ -21,6 +21,7 @@ export default function Kecepatan() {
   // let active = 3;
 
   let name = "Kecepatan air";
+  let judul = "Diagram Debit Air ";
 
   useEffect(() => {
     getKondisiAir();
@@ -80,16 +81,18 @@ export default function Kecepatan() {
         }}
       >
         {isLoading ? (
-          <div>loading</div>
+          <div className="d-flex justify-content-center align-items-center">
+            <h3>Chart Loading....</h3>
+          </div>
         ) : (
-          <Chart name={name} data={chartData} />
+          <Chart name={name} data={chartData} judul={judul} />
         )}
         <h1
           style={{
             marginTop: "4rem",
           }}
         >
-          Data Riwayat Kecepatan Air Bendungan
+          Data Riwayat Debit Air Bendungan
         </h1>
         <div
           className="p"
@@ -135,12 +138,20 @@ export default function Kecepatan() {
                   </td>
                   <td>{dateFormat(kondisi_air.waktu, " h:MM:ss TT")}</td>
                   <td>{kondisi_air.debit}</td>
-                  <td>
+                  <td
+                    className={
+                      kondisi_air.debit > 100
+                        ? "table-danger"
+                        : kondisi_air.debit <= 100 && kondisi_air.debit >= 80
+                        ? "table-warning"
+                        : "table-success"
+                    }
+                  >
                     {kondisi_air.debit > 100
-                      ? "siaga"
+                      ? "Siaga"
                       : kondisi_air.debit <= 100 && kondisi_air.debit >= 80
-                      ? "waspada"
-                      : "aman"}
+                      ? "Waspada"
+                      : "Aman"}
                   </td>
                 </tr>
               );

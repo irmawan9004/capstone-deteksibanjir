@@ -9,7 +9,7 @@ import ReactPaginate from "react-paginate";
 export default function Ketinggian() {
   const [kondisiAir, setKondisiAir] = useState([]);
   const [page, setPage] = useState(0);
-  const [limit, setLimit] = useState(10);
+  const [limit, setLimit] = useState(60);
   const [pages, setPages] = useState(0);
   const [rows, setRows] = useState(0);
   const [keyword, setKeyword] = useState("");
@@ -21,6 +21,7 @@ export default function Ketinggian() {
   // let active = 3;
 
   let name = "Ketinggian air";
+  let judul = "Diagram Ketinggian Air ";
 
   useEffect(() => {
     getKondisiAir();
@@ -80,9 +81,11 @@ export default function Ketinggian() {
         }}
       >
         {isLoading ? (
-          <div>loading</div>
+          <div className="d-flex justify-content-center align-items-center">
+            <h3>Chart Loading....</h3>
+          </div>
         ) : (
-          <Chart name={name} data={chartData} />
+          <Chart name={name} data={chartData} judul={judul} />
         )}
         <h1
           style={{
@@ -135,12 +138,20 @@ export default function Ketinggian() {
                   </td>
                   <td>{dateFormat(kondisi_air.waktu, " h:MM:ss TT")}</td>
                   <td>{kondisi_air.tinggi}</td>
-                  <td>
+                  <td
+                    className={
+                      kondisi_air.tinggi > 100
+                        ? "table-danger"
+                        : kondisi_air.tinggi <= 100 && kondisi_air.tinggi >= 80
+                        ? "table-warning"
+                        : "table-success"
+                    }
+                  >
                     {kondisi_air.tinggi > 100
-                      ? "siaga"
+                      ? "Waspada"
                       : kondisi_air.tinggi <= 100 && kondisi_air.tinggi >= 80
-                      ? "waspada"
-                      : "aman"}
+                      ? "Siaga"
+                      : "Aman"}
                   </td>
                 </tr>
               );

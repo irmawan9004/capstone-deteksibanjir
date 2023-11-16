@@ -23,8 +23,8 @@ export default function Hero() {
   return (
     <Image
       src={
-        kondisiAirSekarang.tinggi >= 100 &&
-        kondisiAirSekarang.debit >= 100 &&
+        kondisiAirSekarang.tinggi >= 100 ||
+        kondisiAirSekarang.debit >= 100 ||
         kondisiAirSekarang.keruh >= 100
           ? kondisi_waspadai
           : (kondisiAirSekarang.debit < 100 &&

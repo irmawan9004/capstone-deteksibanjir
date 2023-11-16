@@ -17,6 +17,9 @@ export default function Chart(props) {
         zoom: {
           enabled: false,
         },
+        toolbar: {
+          show: localStorage.getItem("token") ? true : false,
+        },
       },
       dataLabels: {
         enabled: false,
@@ -25,7 +28,7 @@ export default function Chart(props) {
         curve: "straight",
       },
       title: {
-        text: "Diagram Air",
+        text: props.judul,
         align: "left",
         style: {
           fontSize: "30",
@@ -72,6 +75,7 @@ export default function Chart(props) {
         height={400}
         name={props.name}
         data={props.data}
+        text={props.judul}
       />
     </div>
   );

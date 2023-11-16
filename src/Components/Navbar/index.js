@@ -15,7 +15,6 @@ export default function NavbarWeb() {
 
   useEffect(() => {
     localStorage.getItem("token") ? setLogin(false) : setLogin(true);
-    console.log(localStorage.getItem("token"));
   }, []);
 
   return (
@@ -90,7 +89,6 @@ export default function NavbarWeb() {
                 onClick={() => {
                   localStorage.removeItem("token");
                   setLogin(true);
-                  console.log(localStorage.getItem("token"));
                 }}
               >
                 Logout

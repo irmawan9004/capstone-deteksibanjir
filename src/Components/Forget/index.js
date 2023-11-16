@@ -1,44 +1,37 @@
-import React, { useState } from "react";
-import { Modal, Button, Form, Image } from "react-bootstrap";
+import React from "react";
+import { Modal, Image, Form, Button } from "react-bootstrap";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 import logo from "../../assets/image/Logo-besar.png";
-import Forget from "../Forget";
 
-export default function LoginModal(props) {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [msg, setMsg] = useState("");
-  const [forgetShow, setForgetShow] = useState(false);
-  const [isShow, setIsShow] = useState(false);
-  // const history = useHistory();
-  const navigate = useNavigate();
+export default function Forget(props) {
+  const [email, setEmail] = React.useState("");
+  const [msg, setMsg] = React.useState("");
 
-  const Auth = async (e) => {
+  const Forget = async (e) => {
     e.preventDefault();
     try {
       await axios
-        .post("http://localhost:8000/api/login", {
+        .post("http://localhost:8000/api/forgot-password", {
           email: email,
-          password: password,
         })
         .then((res) => {
-          localStorage.setItem("token", res.data.accessToken);
+          setMsg(res.data.message);
         });
-      navigate("/dashboard");
-      props.onHide();
     } catch (error) {
       if (error.response) {
-        setMsg(error.response.data.msg);
+        setMsg(error.response.data.message);
       }
     }
   };
-
   return (
     <Modal
       {...props}
       aria-labelledby="contained-modal-title-vcenter"
       centered
+      onHide={() => {
+        props.onHide();
+        setMsg("");
+      }}
       size="lg"
       style={{
         fontFamily: "Roboto",
@@ -58,8 +51,9 @@ export default function LoginModal(props) {
           </h2>
         </div>
 
-        <Form onSubmit={Auth}>
+        <Form onSubmit={Forget}>
           <Form.Group className="mb-3" controlId="formBasicEmail">
+            <h5 className=" text-center text-muted">{msg}</h5>
             <Form.Label>Email</Form.Label>
             <Form.Control
               type="email"
@@ -69,27 +63,6 @@ export default function LoginModal(props) {
               className="p-2"
               style={{ borderColor: " #6A7AC4" }}
             />
-          </Form.Group>
-
-          <Form.Group className="mb-4" controlId="formBasicPassword">
-            <div className="d-flex justify-content-between">
-              <Form.Label>Password</Form.Label>
-              <p
-                onClick={() => setForgetShow(true)}
-                style={{ color: "#203989" }}
-              >
-                Lupa kata sandi?
-              </p>
-            </div>
-            <Form.Control
-              type="password"
-              placeholder="*******"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="p-2"
-              style={{ borderColor: " #6A7AC4" }}
-            />
-            <Form.Text className="text-muted">{msg}</Form.Text>
           </Form.Group>
 
           <Button
@@ -102,7 +75,6 @@ export default function LoginModal(props) {
           </Button>
         </Form>
       </Modal.Body>
-      <Forget show={forgetShow} onHide={() => setForgetShow(false)} />
     </Modal>
   );
 }

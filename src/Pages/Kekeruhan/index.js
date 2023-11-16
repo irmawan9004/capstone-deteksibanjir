@@ -9,7 +9,7 @@ import ReactPaginate from "react-paginate";
 export default function Kekeruhan() {
   const [kondisiAir, setKondisiAir] = useState([]);
   const [page, setPage] = useState(0);
-  const [limit, setLimit] = useState(10);
+  const [limit, setLimit] = useState(60);
   const [pages, setPages] = useState(0);
   const [rows, setRows] = useState(0);
   const [keyword, setKeyword] = useState("");
@@ -21,6 +21,7 @@ export default function Kekeruhan() {
   // let active = 3;
 
   let name = "Kecepatan air";
+  let judul = "Diagram Kekeruhan Air ";
 
   useEffect(() => {
     getKondisiAir();
@@ -80,9 +81,11 @@ export default function Kekeruhan() {
         }}
       >
         {isLoading ? (
-          <div>loading</div>
+          <div className="d-flex justify-content-center align-items-center">
+            <h3>Chart Loading....</h3>
+          </div>
         ) : (
-          <Chart name={name} data={chartData} />
+          <Chart name={name} data={chartData} judul={judul} />
         )}
         <h1
           style={{
@@ -135,12 +138,20 @@ export default function Kekeruhan() {
                   </td>
                   <td>{dateFormat(kondisi_air.waktu, " h:MM:ss TT")}</td>
                   <td>{kondisi_air.keruh}</td>
-                  <td>
+                  <td
+                    className={
+                      kondisi_air.keruh > 100
+                        ? "table-danger"
+                        : kondisi_air.keruh <= 100 && kondisi_air.keruh >= 80
+                        ? "table-warning"
+                        : "table-success"
+                    }
+                  >
                     {kondisi_air.keruh > 100
-                      ? "siaga"
+                      ? "Siaga"
                       : kondisi_air.keruh <= 100 && kondisi_air.keruh >= 80
-                      ? "waspada"
-                      : "aman"}
+                      ? "Waspada"
+                      : "Aman"}
                   </td>
                 </tr>
               );

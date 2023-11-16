@@ -8,6 +8,7 @@ import Debit from "./Pages/Debit";
 import Kekeruhan from "./Pages/Kekeruhan";
 
 import Cards from "./Components/Card";
+import GantiPassword from "./Pages/GantiPassword";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route path="/debitair" element={<Debit />} />
         <Route path="/kekeruhanair" element={<Kekeruhan />} />
         <Route path="/evakuasi" element={<Kekeruhan />} />
+        <Route path="/forgot-password/:token" element={<GantiPassword />} />
         <Route path="/coba" element={<Cards />} />
       </Routes>
     </Router>

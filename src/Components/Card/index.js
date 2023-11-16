@@ -49,10 +49,10 @@ export default function Cards() {
               <h5>
                 Ketinggian Air :{" "}
                 {kondisiAirSekarang.tinggi >= 100 ? (
-                  <span className="fw-bolder text-warning"> Waspada</span>
+                  <span className="fw-bolder text-danger"> Waspada</span>
                 ) : kondisiAirSekarang.tinggi < 100 &&
                   kondisiAirSekarang.tinggi >= 80 ? (
-                  <span className="fw-bolder text-danger">Siaga</span>
+                  <span className="fw-bolder text-warning">Siaga</span>
                 ) : (
                   <span className="fw-bolder text-success">Aman</span>
                 )}
