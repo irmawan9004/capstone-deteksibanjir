@@ -6,6 +6,9 @@ import Footer from "../../Components/Footer";
 import telegram from "../../assets/image/Vector.png";
 
 export default function Beranda() {
+  const pageTitle = "Beranda - Portal Bendungan";
+  document.title = pageTitle;
+
   return (
     <div className="min-vh-100 d-flex flex-column">
       <NavbarWeb />

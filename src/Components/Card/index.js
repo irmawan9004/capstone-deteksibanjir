@@ -44,7 +44,7 @@ export default function Cards() {
           <Card.Body className="d-flex justify-content-between ">
             <div>
               <h1 className="fw-bolder fs-1 mb-3">
-                {kondisiAirSekarang.tinggi} M
+                {kondisiAirSekarang.tinggi} Cm
               </h1>
               <h5>
                 Ketinggian Air :{" "}

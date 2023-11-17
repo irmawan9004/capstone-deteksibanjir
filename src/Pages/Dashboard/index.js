@@ -5,6 +5,8 @@ import Cards from "../../Components/Card";
 import Hero from "../../Components/Hero";
 
 export default function Dashboard() {
+  const pageTitle = "Dashboard - Portal Bendungan";
+  document.title = pageTitle;
   return (
     <div
       style={{

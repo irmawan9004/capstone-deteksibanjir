@@ -6,6 +6,8 @@ import { Button, Form, Modal, Image } from "react-bootstrap";
 import logo from "../../assets/image/Logo-besar.png";
 
 export default function GantiPassword() {
+  const pageTitle = "Ubah Kata Sandi - Portal Bendungan";
+  document.title = pageTitle;
   const { token } = useParams();
   const [newPassword, setNewPassword] = useState("");
 

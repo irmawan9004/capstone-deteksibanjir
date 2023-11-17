@@ -7,6 +7,8 @@ import dateFormat from "dateformat";
 import ReactPaginate from "react-paginate";
 
 export default function Kecepatan() {
+  const pageTitle = "Debit Air - Portal Bendungan";
+  document.title = pageTitle;
   const [kondisiAir, setKondisiAir] = useState([]);
   const [page, setPage] = useState(0);
   const [limit, setLimit] = useState(60);

@@ -4,9 +4,11 @@ import axios from "axios";
 import kondisi_aman from "../../assets/image/aman_Kondisi Bendungan.png";
 import kondisi_siaga from "../../assets/image/siaga_Kondisi Bendungan.png";
 import kondisi_waspadai from "../../assets/image/waspada_Kondisi Bendungan.png";
+import loading_state from "../../assets/image/load state.png";
 
 export default function Hero() {
   const [kondisiAirSekarang, setKondisiAirSekarang] = useState({});
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     axios
@@ -15,12 +17,15 @@ export default function Hero() {
       )
       .then((res) => {
         setKondisiAirSekarang(res.data.result[0]);
+        setIsLoading(false);
       })
       .catch((err) => {
         console.log(err);
       });
   }, []);
-  return (
+  return isLoading ? (
+    <Image src={loading_state} fluid></Image>
+  ) : (
     <Image
       src={
         kondisiAirSekarang.tinggi >= 100 ||
