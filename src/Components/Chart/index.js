@@ -19,6 +19,11 @@ export default function Chart(props) {
         },
         toolbar: {
           show: localStorage.getItem("token") ? true : false,
+          offsetX: -40,
+          offsetY: 0,
+          tools: {
+            download: "<button class='btn btn-primary'>Unduh</button>",
+          },
         },
       },
       dataLabels: {
@@ -31,13 +36,15 @@ export default function Chart(props) {
         text: props.judul,
         align: "left",
         style: {
-          fontSize: "30",
+          fontSize: "40",
+          marginBottom: "1.5rem",
         },
       },
+
       subtitle: {
-        text: "Last Updated 1 minutes ago",
+        text: "Update every 1 minutes",
         align: "left",
-        margin: 30,
+        margin: 70,
         style: {
           fontSize: "15",
         },
@@ -67,7 +74,12 @@ export default function Chart(props) {
   }, [props.data]);
 
   return (
-    <div id="chart">
+    <div
+      id="chart"
+      style={{
+        marginTop: "2rem",
+      }}
+    >
       <ApexCharts
         options={state.options}
         series={state.series}

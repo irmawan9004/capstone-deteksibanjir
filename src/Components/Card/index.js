@@ -11,9 +11,7 @@ export default function Cards() {
 
   useEffect(() => {
     axios
-      .get(
-        "https://young-everglades-00873-d903e8dbc719.herokuapp.com/api/kondisiair"
-      )
+      .get("http://localhost:8000/api/kondisiair")
       .then((res) => {
         setKondisiAirSekarang(res.data.result[0]);
       })
@@ -30,10 +28,10 @@ export default function Cards() {
       <CardGroup>
         <Card
           border={
-            kondisiAirSekarang.tinggi >= 100
+            kondisiAirSekarang.tinggi >= 170
               ? "danger"
-              : kondisiAirSekarang.tinggi < 100 &&
-                kondisiAirSekarang.tinggi >= 80
+              : kondisiAirSekarang.tinggi < 170 &&
+                kondisiAirSekarang.tinggi >= 150
               ? "warning"
               : "success"
           }
@@ -48,10 +46,10 @@ export default function Cards() {
               </h1>
               <h5>
                 Ketinggian Air :{" "}
-                {kondisiAirSekarang.tinggi >= 100 ? (
+                {kondisiAirSekarang.tinggi >= 170 ? (
                   <span className="fw-bolder text-danger"> Waspada</span>
-                ) : kondisiAirSekarang.tinggi < 100 &&
-                  kondisiAirSekarang.tinggi >= 80 ? (
+                ) : kondisiAirSekarang.tinggi < 170 &&
+                  kondisiAirSekarang.tinggi >= 150 ? (
                   <span className="fw-bolder text-warning">Siaga</span>
                 ) : (
                   <span className="fw-bolder text-success">Aman</span>
@@ -76,7 +74,7 @@ export default function Cards() {
           border={
             kondisiAirSekarang.debit >= 100
               ? "danger"
-              : kondisiAirSekarang.debit < 100 && kondisiAirSekarang.debit >= 80
+              : kondisiAirSekarang.debit < 100 && kondisiAirSekarang.debit >= 82
               ? "warning"
               : "success"
           }
@@ -93,7 +91,7 @@ export default function Cards() {
                 {kondisiAirSekarang.debit >= 100 ? (
                   <span className="fw-bolder text-danger"> Waspada</span>
                 ) : kondisiAirSekarang.debit < 100 &&
-                  kondisiAirSekarang.debit >= 80 ? (
+                  kondisiAirSekarang.debit >= 82 ? (
                   <span className="fw-bolder text-warning">Siaga</span>
                 ) : (
                   <span className="fw-bolder text-success">Aman</span>
@@ -108,9 +106,10 @@ export default function Cards() {
         {" "}
         <Card
           border={
-            kondisiAirSekarang.keruh >= 100
+            kondisiAirSekarang.keruh >= 1000
               ? "danger"
-              : kondisiAirSekarang.keruh < 100 && kondisiAirSekarang.keruh >= 80
+              : kondisiAirSekarang.keruh < 1000 &&
+                kondisiAirSekarang.keruh >= 800
               ? "warning"
               : "success"
           }
@@ -125,10 +124,10 @@ export default function Cards() {
                 </h1>
                 <h5>
                   Kekeruhan Air :{" "}
-                  {kondisiAirSekarang.keruh >= 100 ? (
+                  {kondisiAirSekarang.keruh >= 1000 ? (
                     <span className="fw-bolder text-danger"> Waspada</span>
-                  ) : kondisiAirSekarang.keruh < 100 &&
-                    kondisiAirSekarang.keruh >= 80 ? (
+                  ) : kondisiAirSekarang.keruh < 1000 &&
+                    kondisiAirSekarang.keruh >= 800 ? (
                     <span className="fw-bolder text-warning">Siaga</span>
                   ) : (
                     <span className="fw-bolder text-success">Aman</span>

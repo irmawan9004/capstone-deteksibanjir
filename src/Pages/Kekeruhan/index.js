@@ -33,7 +33,7 @@ export default function Kekeruhan() {
   const getKondisiAir = async () => {
     try {
       const response = await axios.get(
-        `https://young-everglades-00873-d903e8dbc719.herokuapp.com/api/kondisiair?search_query=${keyword}&page=${page}&limit=${limit}`
+        `http://localhost:8000/api/kondisiair?search_query=${keyword}&page=${page}&limit=${limit}`
       );
       const newChartData = response.data.result.map((item) => item.keruh);
       setChartData(newChartData);
@@ -90,13 +90,13 @@ export default function Kekeruhan() {
         ) : (
           <Chart name={name} data={chartData} judul={judul} />
         )}
-        <h1
+        <h2
           style={{
             marginTop: "4rem",
           }}
         >
           Data Riwayat Kekeruhan Air Bendungan
-        </h1>
+        </h2>
         <div
           className="p"
           style={{
@@ -143,16 +143,16 @@ export default function Kekeruhan() {
                   <td>{kondisi_air.keruh}</td>
                   <td
                     className={
-                      kondisi_air.keruh > 100
+                      kondisi_air.keruh > 1000
                         ? "table-danger"
-                        : kondisi_air.keruh <= 100 && kondisi_air.keruh >= 80
+                        : kondisi_air.keruh <= 1000 && kondisi_air.keruh >= 800
                         ? "table-warning"
                         : "table-success"
                     }
                   >
-                    {kondisi_air.keruh > 100
+                    {kondisi_air.keruh > 1000
                       ? "Siaga"
-                      : kondisi_air.keruh <= 100 && kondisi_air.keruh >= 80
+                      : kondisi_air.keruh <= 1000 && kondisi_air.keruh >= 800
                       ? "Waspada"
                       : "Aman"}
                   </td>

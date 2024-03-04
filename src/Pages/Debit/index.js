@@ -32,7 +32,7 @@ export default function Kecepatan() {
   const getKondisiAir = async () => {
     try {
       const response = await axios.get(
-        `https://young-everglades-00873-d903e8dbc719.herokuapp.com/api/kondisiair?search_query=${keyword}&page=${page}&limit=${limit}`
+        `http://localhost:8000/api/kondisiair?search_query=${keyword}&page=${page}&limit=${limit}`
       );
       const newChartData = response.data.result.map((item) => item.debit);
       setChartData(newChartData);
@@ -89,13 +89,13 @@ export default function Kecepatan() {
         ) : (
           <Chart name={name} data={chartData} judul={judul} />
         )}
-        <h1
+        <h2
           style={{
             marginTop: "4rem",
           }}
         >
           Data Riwayat Debit Air Bendungan
-        </h1>
+        </h2>
         <div
           className="p"
           style={{
@@ -142,16 +142,16 @@ export default function Kecepatan() {
                   <td>{kondisi_air.debit}</td>
                   <td
                     className={
-                      kondisi_air.debit > 100
+                      kondisi_air.debit > 900
                         ? "table-danger"
-                        : kondisi_air.debit <= 100 && kondisi_air.debit >= 80
+                        : kondisi_air.debit <= 900 && kondisi_air.debit >= 500
                         ? "table-warning"
                         : "table-success"
                     }
                   >
-                    {kondisi_air.debit > 100
+                    {kondisi_air.debit > 900
                       ? "Siaga"
-                      : kondisi_air.debit <= 100 && kondisi_air.debit >= 80
+                      : kondisi_air.debit <= 900 && kondisi_air.debit >= 500
                       ? "Waspada"
                       : "Aman"}
                   </td>

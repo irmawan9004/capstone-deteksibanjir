@@ -12,9 +12,7 @@ export default function Hero() {
 
   useEffect(() => {
     axios
-      .get(
-        "https://young-everglades-00873-d903e8dbc719.herokuapp.com/api/kondisiair"
-      )
+      .get("http://localhost:8000/api/kondisiair")
       .then((res) => {
         setKondisiAirSekarang(res.data.result[0]);
         setIsLoading(false);
@@ -28,15 +26,15 @@ export default function Hero() {
   ) : (
     <Image
       src={
-        kondisiAirSekarang.tinggi >= 100 ||
+        kondisiAirSekarang.tinggi >= 170 ||
         kondisiAirSekarang.debit >= 100 ||
-        kondisiAirSekarang.keruh >= 100
+        kondisiAirSekarang.keruh >= 1000
           ? kondisi_waspadai
           : (kondisiAirSekarang.debit < 100 &&
-              kondisiAirSekarang.debit >= 80) ||
-            (kondisiAirSekarang.tinggi < 100 &&
-              kondisiAirSekarang.tinggi >= 80) ||
-            (kondisiAirSekarang.keruh < 100 && kondisiAirSekarang.keruh >= 80)
+              kondisiAirSekarang.debit >= 82) ||
+            (kondisiAirSekarang.tinggi < 170 &&
+              kondisiAirSekarang.tinggi >= 150) ||
+            (kondisiAirSekarang.keruh < 1000 && kondisiAirSekarang.keruh >= 800)
           ? kondisi_siaga
           : kondisi_aman
       }

@@ -4,14 +4,18 @@ import { Container, Button, Image } from "react-bootstrap";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import LoginModal from "../Login";
+import RegisterModal from "../Register";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./index.css";
 import logo from "../../assets/image/Logo.png";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function NavbarWeb() {
   const [login, setLogin] = useState(true);
-  const [modalShow, setModalShow] = React.useState(false);
+  const [modalLoginShow, setModalLoginShow] = React.useState(false);
+  const [modalRegisterShow, setModalRegisterShow] = React.useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     localStorage.getItem("token") ? setLogin(false) : setLogin(true);
@@ -41,6 +45,16 @@ export default function NavbarWeb() {
           >
             <div className="d-flex justify-content-center align-items-lg-center">
               <Image src={logo} alt="logo" />
+              <h1
+                style={{
+                  fontWeight: "bold",
+                  marginLeft: "1rem",
+                  marginTop: "0.5rem",
+                  color: "#203989",
+                }}
+              >
+                B-JIR!
+              </h1>
             </div>
           </Navbar.Brand>
           <Nav
@@ -56,30 +70,46 @@ export default function NavbarWeb() {
             <Nav.Link href="/dashboard" className="px-3 mx-1 ">
               Dashboard
             </Nav.Link>
-            <NavDropdown
-              title="Data Air"
-              id="collasible-nav-dropdown"
-              className="px-3 mx-1"
+            {localStorage.getItem("token") ? (
+              <NavDropdown
+                title="Data Air"
+                id="collasible-nav-dropdown"
+                className="px-3 mx-1"
+              >
+                <NavDropdown.Item href="/ketinggianair">
+                  Ketinggian Air
+                </NavDropdown.Item>
+                <NavDropdown.Item href="/debitair">Debit Air</NavDropdown.Item>
+                <NavDropdown.Item href="/kekeruhanair">
+                  Kekeruhan Air
+                </NavDropdown.Item>
+              </NavDropdown>
+            ) : null}
+            <Button
+              style={{
+                display:
+                  localStorage.getItem("role") === "admin" ? "block" : "none",
+              }}
+              className="btn btn-primary px-4"
+              onClick={() => setModalRegisterShow(true)}
             >
-              <NavDropdown.Item href="/ketinggianair">
-                Ketinggian Air
-              </NavDropdown.Item>
-              <NavDropdown.Item href="/debitair">Debit Air</NavDropdown.Item>
-              <NavDropdown.Item href="/kekeruhanair">
-                Kekeruhan Air
-              </NavDropdown.Item>
-            </NavDropdown>
+              Register
+            </Button>
           </Nav>
           {login ? (
             <Button
               className="btn btn-primary px-4"
-              onClick={() => setModalShow(true)}
+              onClick={() => setModalLoginShow(true)}
             >
               Login
             </Button>
           ) : (
             <NavDropdown
-              title="SULIKIN"
+              title={
+                localStorage.getItem("role") === "admin"
+                  ? "Super Admin"
+                  : "Admin"
+              }
               id="collasible-nav-dropdown"
               style={{
                 fontSize: "1.2rem",
@@ -88,7 +118,9 @@ export default function NavbarWeb() {
               <NavDropdown.Item
                 onClick={() => {
                   localStorage.removeItem("token");
+                  localStorage.removeItem("role");
                   setLogin(true);
+                  navigate("/");
                 }}
               >
                 Logout
@@ -96,7 +128,14 @@ export default function NavbarWeb() {
             </NavDropdown>
           )}
         </Navbar.Collapse>
-        <LoginModal show={modalShow} onHide={() => setModalShow(false)} />
+        <LoginModal
+          show={modalLoginShow}
+          onHide={() => setModalLoginShow(false)}
+        />
+        <RegisterModal
+          show={modalRegisterShow}
+          onHide={() => setModalRegisterShow(false)}
+        />
       </Container>
     </Navbar>
   );

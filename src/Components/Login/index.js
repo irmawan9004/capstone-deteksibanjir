@@ -10,7 +10,6 @@ export default function LoginModal(props) {
   const [password, setPassword] = useState("");
   const [msg, setMsg] = useState("");
   const [forgetShow, setForgetShow] = useState(false);
-  const [isShow, setIsShow] = useState(false);
   // const history = useHistory();
   const navigate = useNavigate();
 
@@ -24,6 +23,7 @@ export default function LoginModal(props) {
         })
         .then((res) => {
           localStorage.setItem("token", res.data.accessToken);
+          localStorage.setItem("role", res.data.role);
         });
       navigate("/dashboard");
       props.onHide();

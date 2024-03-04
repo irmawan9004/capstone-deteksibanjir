@@ -33,7 +33,7 @@ export default function Ketinggian() {
   const getKondisiAir = async () => {
     try {
       const response = await axios.get(
-        `https://young-everglades-00873-d903e8dbc719.herokuapp.com/api/kondisiair?search_query=${keyword}&page=${page}&limit=${limit}`
+        `http://localhost:8000/api/kondisiair?search_query=${keyword}&page=${page}&limit=${limit}`
       );
       const newChartData = response.data.result.map((item) => item.tinggi);
       setChartData(newChartData);
@@ -90,13 +90,13 @@ export default function Ketinggian() {
         ) : (
           <Chart name={name} data={chartData} judul={judul} />
         )}
-        <h1
+        <h2
           style={{
             marginTop: "4rem",
           }}
         >
           Data Riwayat Ketinggian Air Bendungan
-        </h1>
+        </h2>
         <div
           className="p"
           style={{
@@ -143,16 +143,16 @@ export default function Ketinggian() {
                   <td>{kondisi_air.tinggi}</td>
                   <td
                     className={
-                      kondisi_air.tinggi > 100
+                      kondisi_air.tinggi > 200
                         ? "table-danger"
-                        : kondisi_air.tinggi <= 100 && kondisi_air.tinggi >= 80
+                        : kondisi_air.tinggi <= 200 && kondisi_air.tinggi >= 100
                         ? "table-warning"
                         : "table-success"
                     }
                   >
-                    {kondisi_air.tinggi > 100
+                    {kondisi_air.tinggi > 200
                       ? "Waspada"
-                      : kondisi_air.tinggi <= 100 && kondisi_air.tinggi >= 80
+                      : kondisi_air.tinggi <= 200 && kondisi_air.tinggi >= 100
                       ? "Siaga"
                       : "Aman"}
                   </td>
