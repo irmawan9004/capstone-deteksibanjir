@@ -23,8 +23,8 @@ export default function Kekeruhan() {
 
   // let active = 3;
 
-  let name = "Kecepatan air";
-  let judul = "Diagram Kekeruhan Air ";
+  let name = "Kekeruhan air";
+  let judul = "Grafik Kekeruhan Air ";
 
   useEffect(() => {
     getKondisiAir();
@@ -33,7 +33,7 @@ export default function Kekeruhan() {
   const getKondisiAir = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:8000/api/kondisiair?search_query=${keyword}&page=${page}&limit=${limit}`
+        `https://young-everglades-00873-d903e8dbc719.herokuapp.com/api/kondisiair?search_query=${keyword}&page=${page}&limit=${limit}`
       );
       const newChartData = response.data.result.map((item) => item.keruh);
       setChartData(newChartData);
@@ -110,7 +110,7 @@ export default function Kekeruhan() {
             <Col>
               <Form.Control
                 type="text"
-                placeholder="Search"
+                placeholder="(YYYY-MM-DD)"
                 className=" mr-sm-2 mb-3"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
@@ -145,14 +145,14 @@ export default function Kekeruhan() {
                     className={
                       kondisi_air.keruh > 1000
                         ? "table-danger"
-                        : kondisi_air.keruh <= 1000 && kondisi_air.keruh >= 800
+                        : kondisi_air.keruh < 1000 && kondisi_air.keruh >= 800
                         ? "table-warning"
                         : "table-success"
                     }
                   >
                     {kondisi_air.keruh > 1000
                       ? "Siaga"
-                      : kondisi_air.keruh <= 1000 && kondisi_air.keruh >= 800
+                      : kondisi_air.keruh < 1000 && kondisi_air.keruh >= 800
                       ? "Waspada"
                       : "Aman"}
                   </td>

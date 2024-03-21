@@ -19,7 +19,9 @@ export default function RegisterModal(props, { onSelect }) {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8000/api/roles")
+      .get(
+        "https://young-everglades-00873-d903e8dbc719.herokuapp.com/api/roles"
+      )
       .then((res) => {
         setRoles(res.data);
       })
@@ -32,13 +34,16 @@ export default function RegisterModal(props, { onSelect }) {
     e.preventDefault();
     try {
       await axios
-        .post("http://localhost:8000/api/registerpengelola", {
-          name: name,
-          email: email,
-          password: password,
-          confPassword: confPassword,
-          selected: selected,
-        })
+        .post(
+          "https://young-everglades-00873-d903e8dbc719.herokuapp.com/api/registerpengelola",
+          {
+            name: name,
+            email: email,
+            password: password,
+            confPassword: confPassword,
+            selected: selected,
+          }
+        )
         .then((res) => {
           setMsg(res.data.message);
         });

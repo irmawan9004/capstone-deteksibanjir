@@ -11,9 +11,12 @@ export default function Forget(props) {
     e.preventDefault();
     try {
       await axios
-        .post("http://localhost:8000/api/forgot-password", {
-          email: email,
-        })
+        .post(
+          "https://young-everglades-00873-d903e8dbc719.herokuapp.com/api/forgot-password",
+          {
+            email: email,
+          }
+        )
         .then((res) => {
           setMsg(res.data.message);
         });

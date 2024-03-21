@@ -24,7 +24,7 @@ export default function Ketinggian() {
   // let active = 3;
 
   let name = "Ketinggian air";
-  let judul = "Diagram Ketinggian Air ";
+  let judul = "Grafik Ketinggian Air ";
 
   useEffect(() => {
     getKondisiAir();
@@ -33,7 +33,7 @@ export default function Ketinggian() {
   const getKondisiAir = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:8000/api/kondisiair?search_query=${keyword}&page=${page}&limit=${limit}`
+        `https://young-everglades-00873-d903e8dbc719.herokuapp.com/api/kondisiair?search_query=${keyword}&page=${page}&limit=${limit}`
       );
       const newChartData = response.data.result.map((item) => item.tinggi);
       setChartData(newChartData);
@@ -110,7 +110,7 @@ export default function Ketinggian() {
             <Col>
               <Form.Control
                 type="text"
-                placeholder="Search"
+                placeholder="(YYYY-MM-DD)"
                 className=" mr-sm-2 mb-3"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
@@ -143,16 +143,16 @@ export default function Ketinggian() {
                   <td>{kondisi_air.tinggi}</td>
                   <td
                     className={
-                      kondisi_air.tinggi > 200
+                      kondisi_air.tinggi > 170
                         ? "table-danger"
-                        : kondisi_air.tinggi <= 200 && kondisi_air.tinggi >= 100
+                        : kondisi_air.tinggi < 150 && kondisi_air.tinggi >= 130
                         ? "table-warning"
                         : "table-success"
                     }
                   >
-                    {kondisi_air.tinggi > 200
+                    {kondisi_air.tinggi > 170
                       ? "Waspada"
-                      : kondisi_air.tinggi <= 200 && kondisi_air.tinggi >= 100
+                      : kondisi_air.tinggi <= 150 && kondisi_air.tinggi >= 130
                       ? "Siaga"
                       : "Aman"}
                   </td>

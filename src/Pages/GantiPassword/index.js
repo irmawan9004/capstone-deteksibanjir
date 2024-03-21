@@ -21,7 +21,7 @@ export default function GantiPassword() {
   const handleResetPassword = async () => {
     try {
       const response = await axios.post(
-        "http://localhost:8000/api/reset-password",
+        "https://young-everglades-00873-d903e8dbc719.herokuapp.com/api/reset-password",
         { token, newPassword }
       );
       console.log(response.data);

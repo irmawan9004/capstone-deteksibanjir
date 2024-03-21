@@ -17,15 +17,19 @@ export default function LoginModal(props) {
     e.preventDefault();
     try {
       await axios
-        .post("http://localhost:8000/api/login", {
-          email: email,
-          password: password,
-        })
+        .post(
+          "https://young-everglades-00873-d903e8dbc719.herokuapp.com/api/login",
+          {
+            email: email,
+            password: password,
+          }
+        )
         .then((res) => {
           localStorage.setItem("token", res.data.accessToken);
           localStorage.setItem("role", res.data.role);
         });
       navigate("/dashboard");
+      navigate(0);
       props.onHide();
     } catch (error) {
       if (error.response) {
@@ -89,7 +93,7 @@ export default function LoginModal(props) {
               className="p-2"
               style={{ borderColor: " #6A7AC4" }}
             />
-            <Form.Text className="text-muted">{msg}</Form.Text>
+            <Form.Text className="text-danger ">{msg}</Form.Text>
           </Form.Group>
 
           <Button
@@ -98,7 +102,7 @@ export default function LoginModal(props) {
             style={{ width: "100%" }}
             className="mb-5  align-items-center"
           >
-            <div className="p-1"> Submit</div>
+            <div className="p-1"> Login </div>
           </Button>
         </Form>
       </Modal.Body>

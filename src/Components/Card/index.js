@@ -11,7 +11,9 @@ export default function Cards() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8000/api/kondisiair")
+      .get(
+        "https://young-everglades-00873-d903e8dbc719.herokuapp.com//api/kondisiair"
+      )
       .then((res) => {
         setKondisiAirSekarang(res.data.result[0]);
       })
@@ -45,7 +47,7 @@ export default function Cards() {
                 {kondisiAirSekarang.tinggi} Cm
               </h1>
               <h5>
-                Ketinggian Air :{" "}
+                Status :{" "}
                 {kondisiAirSekarang.tinggi >= 170 ? (
                   <span className="fw-bolder text-danger"> Waspada</span>
                 ) : kondisiAirSekarang.tinggi < 170 &&
@@ -80,14 +82,14 @@ export default function Cards() {
           }
           style={{ width: "25rem", borderRadius: "1.3rem" }}
         >
-          <Card.Header>Kecepatan Air</Card.Header>
+          <Card.Header>Debit Air</Card.Header>
           <Card.Body className="d-flex justify-content-between ">
             <div>
               <h1 className="fw-bolder fs-1 mb-3">
                 {kondisiAirSekarang.debit} M/s
               </h1>
               <h5>
-                Kecepatan Air :{" "}
+                Status :{" "}
                 {kondisiAirSekarang.debit >= 100 ? (
                   <span className="fw-bolder text-danger"> Waspada</span>
                 ) : kondisiAirSekarang.debit < 100 &&
@@ -123,7 +125,7 @@ export default function Cards() {
                   {kondisiAirSekarang.keruh} NTU
                 </h1>
                 <h5>
-                  Kekeruhan Air :{" "}
+                  Status :{" "}
                   {kondisiAirSekarang.keruh >= 1000 ? (
                     <span className="fw-bolder text-danger"> Waspada</span>
                   ) : kondisiAirSekarang.keruh < 1000 &&

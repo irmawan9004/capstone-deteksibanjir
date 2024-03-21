@@ -9,10 +9,6 @@
   font-weight: 500;
   font-size: 1.2rem;
 }
-.navbar-nav a.active {
-  color: #203989;
-  border-radius: 0.4rem;
-}
 
 .btn-primary {
   background-color: #203989;

@@ -85,16 +85,6 @@ export default function NavbarWeb() {
                 </NavDropdown.Item>
               </NavDropdown>
             ) : null}
-            <Button
-              style={{
-                display:
-                  localStorage.getItem("role") === "admin" ? "block" : "none",
-              }}
-              className="btn btn-primary px-4"
-              onClick={() => setModalRegisterShow(true)}
-            >
-              Register
-            </Button>
           </Nav>
           {login ? (
             <Button
@@ -104,30 +94,44 @@ export default function NavbarWeb() {
               Login
             </Button>
           ) : (
-            <NavDropdown
-              title={
-                localStorage.getItem("role") === "admin"
-                  ? "Super Admin"
-                  : "Admin"
-              }
-              id="collasible-nav-dropdown"
-              style={{
-                fontSize: "1.2rem",
-              }}
-            >
-              <NavDropdown.Item
-                onClick={() => {
-                  localStorage.removeItem("token");
-                  localStorage.removeItem("role");
-                  setLogin(true);
-                  navigate("/");
+            <section style={{ display: "flex " }}>
+              <Button
+                style={{
+                  display:
+                    localStorage.getItem("role") === "admin" ? "block" : "none",
+                }}
+                className="btn btn-primary px-4"
+                onClick={() => setModalRegisterShow(true)}
+              >
+                Register
+              </Button>
+              <NavDropdown
+                title={
+                  localStorage.getItem("role") === "admin"
+                    ? "Super Admin"
+                    : "Admin"
+                }
+                id="collasible-nav-dropdown"
+                style={{
+                  marginLeft: "1.2rem",
+                  fontSize: "1.2rem",
                 }}
               >
-                Logout
-              </NavDropdown.Item>
-            </NavDropdown>
+                <NavDropdown.Item
+                  onClick={() => {
+                    localStorage.removeItem("token");
+                    localStorage.removeItem("role");
+                    setLogin(true);
+                    navigate("/");
+                  }}
+                >
+                  Logout
+                </NavDropdown.Item>
+              </NavDropdown>
+            </section>
           )}
         </Navbar.Collapse>
+
         <LoginModal
           show={modalLoginShow}
           onHide={() => setModalLoginShow(false)}

@@ -22,8 +22,8 @@ export default function Kecepatan() {
 
   // let active = 3;
 
-  let name = "Kecepatan air";
-  let judul = "Diagram Debit Air ";
+  let name = "Debit air";
+  let judul = "Grafik Debit Air ";
 
   useEffect(() => {
     getKondisiAir();
@@ -32,9 +32,10 @@ export default function Kecepatan() {
   const getKondisiAir = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:8000/api/kondisiair?search_query=${keyword}&page=${page}&limit=${limit}`
+        `https://young-everglades-00873-d903e8dbc719.herokuapp.com/api/kondisiair?search_query=${keyword}&page=${page}&limit=${limit}`
       );
       const newChartData = response.data.result.map((item) => item.debit);
+      console.log(newChartData);
       setChartData(newChartData);
       setKondisiAir(response.data.result);
       setPage(response.data.page);
@@ -109,7 +110,7 @@ export default function Kecepatan() {
             <Col>
               <Form.Control
                 type="text"
-                placeholder="Search"
+                placeholder="(YYYY-MM-DD)"
                 className=" mr-sm-2 mb-3"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
@@ -142,16 +143,16 @@ export default function Kecepatan() {
                   <td>{kondisi_air.debit}</td>
                   <td
                     className={
-                      kondisi_air.debit > 900
+                      kondisi_air.debit > 100
                         ? "table-danger"
-                        : kondisi_air.debit <= 900 && kondisi_air.debit >= 500
+                        : kondisi_air.debit < 100 && kondisi_air.debit >= 82
                         ? "table-warning"
                         : "table-success"
                     }
                   >
-                    {kondisi_air.debit > 900
+                    {kondisi_air.debit > 100
                       ? "Siaga"
-                      : kondisi_air.debit <= 900 && kondisi_air.debit >= 500
+                      : kondisi_air.debit < 100 && kondisi_air.debit >= 82
                       ? "Waspada"
                       : "Aman"}
                   </td>
